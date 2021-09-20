@@ -1,3 +1,7 @@
+A crossing from Notting Hill, London, with traffic management and some humans.
+Built with Angular and AFrame.
+
+
 # NottingHill
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.0.
