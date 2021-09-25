@@ -15,6 +15,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   private sub: Subscription = new Subscription(null);
   public vehicles: any = [];
   public humans: any = [];
+  public gameState = 'start';
   @ViewChild('camera', { static: false }) camera: ElementRef;
   @ViewChild('rig', { static: false }) rig: ElementRef;
   @ViewChild('sky', { static: false }) sky: any;
@@ -61,6 +62,10 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.updateHumans();
     }));
     this.manageSky();
+  }
+
+  startGame() {
+    this.gameState = 'playing';
   }
 
   ngAfterViewChecked(): void {
