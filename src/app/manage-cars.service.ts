@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { eastToSouth, southToEast, southToWest, westToEast } from './models/routes';
 import { Vehicles } from './models/vehicles';
@@ -20,7 +21,7 @@ export class ManageCarsService {
   public trafficLightDirection: string = 'west';
   public trafficLightDirectionSubject: BehaviorSubject<any> = new BehaviorSubject('west');
 
-  constructor() {
+  constructor(private router: Router) {
     this.manageTrafficLight();
   }
 
@@ -35,11 +36,13 @@ export class ManageCarsService {
   }
 
   manageVehicles() {
+    if (this.router.url != "/crossing") return;
     let currentVehiclesNumber = 0;
     this.vehicles.forEach(v => v.enabled ? currentVehiclesNumber++ : null);
     if (currentVehiclesNumber >= this.maxVehiclesNumber) return;
     if (currentVehiclesNumber <= this.minVehiclesNumber) this.createVehicle(currentVehiclesNumber);
     else if (Math.floor(Math.random() * 2) === 1) this.createVehicle(currentVehiclesNumber);
+    setTimeout(() => { this.manageVehicles() }, 4000);
   }
 
   createVehicle(currentVehiclesNumber: number) {
@@ -125,8 +128,8 @@ export class ManageCarsService {
       case 'westToEast':
         this.vehicles.forEach(v => {
           if (v.enabled && (v.dir === 'westToEast' || v.dir === 'southToEast') && v.id != vehicle.id && v.position.x - vehicle.position.x < 8
-            && v.position.x - vehicle.position.x > 0 && Math.abs(v.position.z - vehicle.position.z) < 8 ) {
-            stopFunction = true; 
+            && v.position.x - vehicle.position.x > 0 && Math.abs(v.position.z - vehicle.position.z) < 8) {
+            stopFunction = true;
           }
         })
         break;

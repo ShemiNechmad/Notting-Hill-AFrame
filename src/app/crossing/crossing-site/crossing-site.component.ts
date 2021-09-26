@@ -21,7 +21,6 @@ export class CrossingSiteComponent implements OnInit, AfterViewInit {
   @ViewChild('camera', { static: false }) camera: ElementRef;
   @ViewChild('rig', { static: false }) rig: ElementRef;
   @ViewChild('sky', { static: false }) sky: any;
-  public bgSound = new Audio();
 
   constructor(private cdr: ChangeDetectorRef, private mc: ManageCarsService, private mh: ManageHumansService, private ms: MainService, private router: Router) {
     this.ms.gameState.subscribe(data => { data === 'start' ? this.router.navigate(['']) : this.gameState = 'playing'; });
@@ -31,20 +30,14 @@ export class CrossingSiteComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
-    this.bgSound.src = "assets/images/queenswaySound.mp3";
-    this.bgSound.load();
-    this.bgSound.play();
-    this.bgSound.loop = true;
+
   }
 
   ngAfterViewInit() {
     // this.rig.nativeElement.setAttribute('position', {x:170, y:0, z:-10});
     this.mc.manageVehicles();
-    setInterval(() => {
-      this.mc.manageVehicles();
-      this.mh.manageHumans();
-      // console.log(this.rig.nativeElement.getAttribute('position'));
-    }, 4000);
+    this.mh.manageHumans();
+    // console.log(this.rig.nativeElement.getAttribute('position'));
 
     // this.camera.nativeElement.setAttribute('position', {x: 6, y: 6, z: 6});
     // AFRAME.registerComponent('camera-listener', {
@@ -77,6 +70,7 @@ export class CrossingSiteComponent implements OnInit, AfterViewInit {
   }
 
   manageSky(y: number = 0) {
+    if (this.router.url != "/crossing") return;
     let sky: any = document.getElementById('sky');
     y = y + 0.2;
     sky.object3D.rotation.set(

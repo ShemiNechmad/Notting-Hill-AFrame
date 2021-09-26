@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { ManageCarsService } from './manage-cars.service';
 import { HeastToSouth1, HeastToWest1, HsouthToEast1, HsouthToWest1, HwestToEast1, HwestToNorth1 } from './models/humanRoutes';
@@ -23,16 +24,18 @@ export class ManageHumansService {
   public trafficLightDirection: string = 'west';
   public trafficLightDirectionSubject: BehaviorSubject<any> = new BehaviorSubject('west');
 
-  constructor(private mc: ManageCarsService) {
+  constructor(private mc: ManageCarsService, private router: Router) {
     this.mc.trafficLightDirectionSubject.subscribe(d => { this.trafficLightDirection = d });
   }
 
   manageHumans() {
+    if (this.router.url != "/crossing") return;
     let currentHumansNumber = 0;
     this.humans.forEach(h => h.enabled ? currentHumansNumber++ : null);
     if (currentHumansNumber >= this.maxHumansNumber) return;
     if (currentHumansNumber <= this.minHumansNumber) this.createHuman(currentHumansNumber);
     else if (Math.floor(Math.random() * 2) === 1) this.createHuman(currentHumansNumber);
+    setTimeout(() => { this.manageHumans(); }, 4000);
   }
 
   createHuman(currentHumansNumber: number) {
