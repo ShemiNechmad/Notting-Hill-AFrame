@@ -214,7 +214,6 @@ export class ManageHumansService {
         else if (human.position.x > human.route.end.x) {
           human.position.x = human.position.x - human.speed;
           human.rotation.y = 270;
-          console.log(human.id, 'stage 2');
           this.humansSubject.next(this.humans);
           setTimeout(() => { this.humanWalking(human); }, 80);
           return;

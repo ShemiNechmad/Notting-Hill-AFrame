@@ -1,0 +1,26 @@
+.screen {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: white;
+    opacity: 0.5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url("/assets/images/londonSky1.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    button {
+        margin: 10px 0;
+        background-color: rgb(242, 242, 242);
+        outline: none;
+        padding: 3px 14px;
+        border-radius: 15px;
+        cursor: pointer;
+    }
+}
