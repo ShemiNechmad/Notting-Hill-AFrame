@@ -21,6 +21,7 @@ export class CrossingSiteComponent implements OnInit, AfterViewInit {
   @ViewChild('camera', { static: false }) camera: ElementRef;
   @ViewChild('rig', { static: false }) rig: ElementRef;
   @ViewChild('sky', { static: false }) sky: any;
+  public bgSound = new Audio();
 
   constructor(private cdr: ChangeDetectorRef, private mc: ManageCarsService, private mh: ManageHumansService, private ms: MainService, private router: Router) {
     this.ms.gameState.subscribe(data => { data === 'start' ? this.router.navigate(['']) : this.gameState = 'playing'; });
@@ -30,6 +31,10 @@ export class CrossingSiteComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
+    this.bgSound.src = "assets/images/queenswaySound.mp3";
+    this.bgSound.load();
+    this.bgSound.play();
+    this.bgSound.loop = true;
   }
 
   ngAfterViewInit() {
