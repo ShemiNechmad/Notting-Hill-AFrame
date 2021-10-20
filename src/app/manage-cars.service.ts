@@ -36,13 +36,13 @@ export class ManageCarsService {
   }
 
   manageVehicles() {
+    setTimeout(() => { this.manageVehicles() }, 4000);
     if (this.router.url != "/crossing") return;
     let currentVehiclesNumber = 0;
     this.vehicles.forEach(v => v.enabled ? currentVehiclesNumber++ : null);
     if (currentVehiclesNumber >= this.maxVehiclesNumber) return;
     if (currentVehiclesNumber <= this.minVehiclesNumber) this.createVehicle(currentVehiclesNumber);
     else if (Math.floor(Math.random() * 2) === 1) this.createVehicle(currentVehiclesNumber);
-    setTimeout(() => { this.manageVehicles() }, 4000);
   }
 
   createVehicle(currentVehiclesNumber: number) {

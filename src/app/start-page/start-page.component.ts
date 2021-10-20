@@ -19,6 +19,7 @@ export class StartPageComponent implements OnInit {
 
   startGame() {
     this.ms.changeGameState('playing');
+    this.ms.startBackGroundSound();
     this.router.navigate(['crossing']);
   }
 

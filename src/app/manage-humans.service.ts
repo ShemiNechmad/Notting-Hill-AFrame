@@ -29,13 +29,13 @@ export class ManageHumansService {
   }
 
   manageHumans() {
+    setTimeout(() => { this.manageHumans(); }, 4000);
     if (this.router.url != "/crossing") return;
     let currentHumansNumber = 0;
     this.humans.forEach(h => h.enabled ? currentHumansNumber++ : null);
     if (currentHumansNumber >= this.maxHumansNumber) return;
     if (currentHumansNumber <= this.minHumansNumber) this.createHuman(currentHumansNumber);
     else if (Math.floor(Math.random() * 2) === 1) this.createHuman(currentHumansNumber);
-    setTimeout(() => { this.manageHumans(); }, 4000);
   }
 
   createHuman(currentHumansNumber: number) {

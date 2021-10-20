@@ -119,6 +119,7 @@ export class CrossingSiteComponent implements OnInit, AfterViewInit {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+    this.ms.stopBackGroundSound();
   }
 
 }
